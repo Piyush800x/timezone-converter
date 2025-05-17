@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Bricolage_Grotesque } from "next/font/google";
+import { Space_Mono } from "next/font/google";
+
+const space_mono = Space_Mono({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
 
 const bricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -30,7 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bricolageGrotesque.className} antialiased `}>
+      <body
+        className={`${bricolageGrotesque.className} ${space_mono.className}antialiased `}
+      >
         {children}
       </body>
     </html>

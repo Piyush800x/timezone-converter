@@ -2,24 +2,27 @@
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 import { useState, useEffect } from "react";
 import { timezones } from "@/data/mockData";
+import { Space_Mono } from "next/font/google";
 
-export default function MainClock() {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [selectedCity, setSelectedCity] = useState("london");
+const space_mono = Space_Mono({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+interface MainClockProps {
+  currentTime: Date;
+  selectedCity: string;
+}
+
+export default function MainClock({
+  currentTime,
+  selectedCity,
+}: MainClockProps) {
   const [timeFormat, setTimeFormat] = useState<"12h" | "24h">("24h");
-
-  // Update current time every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Get current city data
   const currentCity =
     timezones.find((tz) => tz.id === selectedCity) || timezones[2];
-
   // Format the current time for display
   const formatCurrentTime = () => {
     const options: Intl.DateTimeFormatOptions = {
@@ -48,7 +51,9 @@ export default function MainClock() {
 
   return (
     <div className="text-center mb-8">
-      <h1 className="text-[384px] font-normal tracking-tighter leading-none">
+      <h1
+        className={`${space_mono.className} text-[384px] font-normal tracking-tighter leading-none`}
+      >
         {formatCurrentTime()}
       </h1>
 
