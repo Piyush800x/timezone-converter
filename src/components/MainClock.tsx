@@ -3,6 +3,8 @@ import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 import { useState, useEffect } from "react";
 import { timezones } from "@/data/mockData";
 import { Space_Mono } from "next/font/google";
+import { ThemeMode, ThemeVariant } from "@/data/mockData";
+import { cn } from "@/lib/utils";
 
 const space_mono = Space_Mono({
   weight: ["400", "700"],
@@ -12,11 +14,22 @@ const space_mono = Space_Mono({
 interface MainClockProps {
   currentTime: Date;
   selectedCity: string;
+  currentTheme: { mode: ThemeMode; variant: ThemeVariant };
+  selectedTheme: {
+    mode: ThemeMode;
+    variant: ThemeVariant;
+    tabBg: string;
+    tabBorder: string;
+    tabActive: string;
+    tabActiveText: string;
+  };
 }
 
 export default function MainClock({
   currentTime,
   selectedCity,
+  currentTheme,
+  selectedTheme,
 }: MainClockProps) {
   const [timeFormat, setTimeFormat] = useState<"12h" | "24h">("24h");
 
@@ -63,29 +76,64 @@ export default function MainClock({
   return (
     <div className="text-center mb-8 w-full overflow-hidden">
       <h1
-        className={`${space_mono.className} text-[20vw] font-normal tracking-tighter leading-none`}
+        className={cn(
+          space_mono.className,
+          "text-[20vw] font-normal tracking-tighter leading-none",
+          currentTheme.mode === "dark" ? "text-white" : "text-black"
+        )}
       >
         {formatCurrentTime()}
       </h1>
 
       <div className="flex justify-between items-center mt-4">
-        <div className="text-sm text-gray-500">Current</div>
+        <div
+          className={cn(
+            "text-sm",
+            currentTheme.mode === "dark" ? "text-gray-400" : "text-gray-500"
+          )}
+        >
+          Current
+        </div>
 
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-black text-2xl">{getCurrentDate()}</span>
+          <span
+            className={cn(
+              "text-2xl",
+              currentTheme.mode === "dark" ? "text-white" : "text-black"
+            )}
+          >
+            {getCurrentDate()}
+          </span>
         </div>
 
         <Tabs
           defaultValue={timeFormat}
           onValueChange={(v) => setTimeFormat(v as "12h" | "24h")}
         >
-          <TabsList className="bg-gray-200">
-            <TabsTrigger value="12h" className="data-[state=active]:bg-white">
+          <TabsList
+            className={cn(
+              "border",
+              selectedTheme.tabBg,
+              selectedTheme.tabBorder
+            )}
+          >
+            <TabsTrigger
+              value="12h"
+              className={cn(
+                "transition-colors",
+                "data-[state=active]:" + selectedTheme.tabActive,
+                "data-[state=active]:" + selectedTheme.tabActiveText
+              )}
+            >
               12h
             </TabsTrigger>
             <TabsTrigger
               value="24h"
-              className="data-[state=active]:bg-black data-[state=active]:text-white"
+              className={cn(
+                "transition-colors",
+                "data-[state=active]:" + selectedTheme.tabActive,
+                "data-[state=active]:" + selectedTheme.tabActiveText
+              )}
             >
               24h
             </TabsTrigger>

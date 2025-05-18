@@ -2,19 +2,30 @@
 import { timezones } from "@/data/mockData";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { ThemeMode, ThemeVariant, themes } from "@/data/mockData";
 
 interface CityTimeCardProps {
   currentTime: Date;
   selectedCity: string;
   setSelectedCity: (cityId: string) => void;
+  currentTheme: { mode: ThemeMode; variant: ThemeVariant };
 }
 
 export default function CityTimeCard({
   currentTime,
   selectedCity,
   setSelectedCity,
+  currentTheme,
 }: CityTimeCardProps) {
   const [cities, setCities] = useState(timezones.slice(0, 4));
+  const selectedTheme = themes[currentTheme.mode][
+    currentTheme.variant as keyof (typeof themes)[typeof currentTheme.mode]
+  ] as {
+    accent?: string;
+    accentText?: string;
+    background: string;
+    text: string;
+  };
 
   // Get current city data
   const currentCity =
@@ -55,21 +66,32 @@ export default function CityTimeCard({
             onClick={() => setSelectedCity(city.id)}
             className={cn(
               "p-4 rounded-lg cursor-pointer transition-colors",
-              isSelected ? "bg-black text-white" : "bg-white hover:bg-gray-50"
+              isSelected
+                ? "accent" in selectedTheme && "accentText" in selectedTheme
+                  ? `${selectedTheme.accent} ${selectedTheme.accentText}`
+                  : `${selectedTheme.background} ${selectedTheme.text}`
+                : `${selectedTheme.background} ${selectedTheme.text} hover:opacity-80`
             )}
           >
             <div className="flex justify-between items-center mb-2">
               <span>{city.city}</span>
-              <span className="text-xs opacity-70">{city.utcOffset}</span>
+              <span
+                className={cn(
+                  "text-xs",
+                  isSelected ? "opacity-80" : "opacity-60"
+                )}
+              >
+                {city.utcOffset}
+              </span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="text-3xl font-bold">{timeString}</span>
               <span className="flex items-center text-xs">
                 {dayOrNight === "Day" ? (
-                  <span className="text-yellow-500 mr-1">☀</span>
+                  <span className="mr-1">☀</span>
                 ) : (
-                  <span className="text-yellow-300 mr-1">🌙</span>
+                  <span className="mr-1">🌙</span>
                 )}
                 {dayOrNight}
               </span>

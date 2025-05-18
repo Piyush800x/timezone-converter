@@ -93,8 +93,99 @@ export const timezones = [
   { id: "noumea", city: "Nouméa", country: "New Caledonia", value: "Pacific/Noumea", utcOffset: "UTC+11:00" },
   { id: "port-moresby", city: "Port Moresby", country: "Papua New Guinea", value: "Pacific/Port_Moresby", utcOffset: "UTC+10:00" },
   { id: "honiara", city: "Honiara", country: "Solomon Islands", value: "Pacific/Guadalcanal", utcOffset: "UTC+11:00" },
-  { id: "jakarta", city: "Jakarta", country: "Indonesia", value: "Asia/Jakarta", utcOffset: "UTC+07:00" },
   { id: "denpasar", city: "Denpasar", country: "Indonesia", value: "Asia/Makassar", utcOffset: "UTC+08:00" },
   { id: "jayapura", city: "Jayapura", country: "Indonesia", value: "Asia/Jayapura", utcOffset: "UTC+09:00" }
 ];  
  
+export const themes = {
+  light: {
+    default: {
+      name: "Light Default",
+      background: "bg-white",
+      text: "text-gray-900",
+      accent: "bg-gray-900",
+      accentText: "text-white",
+      nav: "bg-white/80",
+      navText: "text-gray-900",
+      tabBg: "bg-gray-100",
+      tabBorder: "border-gray-200",
+      tabActive: "bg-gray-900",
+      tabActiveText: "text-white",
+      wallpaper: "/wallpapers/light-default.webp"
+    },
+    orange: {
+      name: "Light Orange",
+      background: "bg-orange-50",
+      text: "text-orange-900",
+      accent: "bg-orange-600",
+      accentText: "text-white",
+      nav: "bg-orange-50",
+      navText: "text-orange-900",
+      tabBg: "bg-orange-100",
+      tabBorder: "border-orange-200",
+      tabActive: "bg-orange-600",
+      tabActiveText: "text-white",
+      wallpaper: "/wallpapers/light-orange.webp"
+    },
+    blue: {
+      name: "Light Blue",
+      background: "bg-blue-50",
+      text: "text-blue-900",
+      accent: "bg-blue-600",
+      accentText: "text-white",
+      nav: "bg-blue-50",
+      navText: "text-blue-900",
+      tabBorder: "border-blue-200",
+      tabActive: "bg-blue-600",
+      tabActiveText: "text-white",
+      wallpaper: "/wallpapers/light-blue.webp"
+    }
+  },
+  dark: {
+    default: {
+      name: "Dark Default",
+      background: "bg-gray-900",
+      text: "text-gray-100",
+      accent: "bg-white",
+      accentText: "text-gray-900",
+      nav: "bg-gray-900/80",
+      navText: "text-white",
+      tabBg: "bg-gray-800",
+      tabBorder: "border-gray-700",
+      tabActive: "bg-white",
+      tabActiveText: "text-gray-900",
+      wallpaper: "/wallpapers/dark-default.webp"
+    },
+    purple: {
+      name: "Dark Purple",
+      background: "bg-purple-950",
+      text: "text-purple-100",
+      accent: "bg-purple-400",
+      accentText: "text-purple-950",
+      nav: "bg-purple-950",
+      navText: "text-purple-100",
+      tabBg: "bg-purple-800",
+      tabBorder: "border-purple-700",
+      tabActive: "bg-purple",
+      tabActiveText: "text-purple-900",
+      wallpaper: "/wallpapers/dark-purple.webp"
+    },
+    green: {
+      name: "Dark Green",
+      background: "bg-emerald-950",
+      text: "text-emerald-100",
+      accent: "bg-emerald-400",
+      accentText: "text-emerald-950",
+      nav: "bg-emerald-950",
+      navText: "text-emerald-100",
+      tabBg: "bg-emerald-800",
+      tabBorder: "border-emerald-700",
+      tabActive: "bg-emerald",
+      tabActiveText: "text-emerald-900",
+      wallpaper: "/wallpapers/dark-green.webp"
+    }
+  }
+};
+
+export type ThemeMode = "light" | "dark";
+export type ThemeVariant = "default" | "orange" | "blue";
