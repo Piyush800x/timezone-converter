@@ -28,6 +28,15 @@ interface NavbarProps {
   currentTheme: { mode: ThemeMode; variant: ThemeVariant };
 }
 
+// Add this interface at the top of the file with other interfaces
+interface SavedCity {
+  id: string;
+  city: string;
+  country: string;
+  value: string;
+  utcOffset: string;
+}
+
 export default function Navbar({
   onCitySelect,
   onThemeChange,
@@ -47,11 +56,11 @@ export default function Navbar({
     if (selectedCity) {
       const savedCities = JSON.parse(
         localStorage.getItem("savedCities") || "[]"
-      );
+      ) as SavedCity[];
 
       // Remove if already exists
       const filteredCities = savedCities.filter(
-        (city: any) => city.id !== cityId
+        (city: SavedCity) => city.id !== cityId
       );
 
       // Add to the end and keep only last 4
@@ -63,7 +72,7 @@ export default function Navbar({
     }
   };
 
-  // Add proper typing for the theme
+  // Get theme properties
   const selectedTheme = (
     themes[currentTheme.mode] as Record<ThemeVariant, ThemeProperties>
   )[currentTheme.variant];
