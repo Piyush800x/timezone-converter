@@ -5,6 +5,13 @@ import Navbar from "@/components/Navbar";
 import { useState, useEffect, useCallback } from "react";
 import CityTimeCard from "@/components/CityTimeCard";
 import { themes, ThemeMode, ThemeVariant } from "@/data/mockData";
+import { Bricolage_Grotesque } from "next/font/google";
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-bricolage",
+});
 
 export interface ThemeProperties {
   name: string;
@@ -132,7 +139,7 @@ export default function Home() {
   }, [handleThemeChange]); // Add handleThemeChange as dependency
 
   return (
-    <div className="mx-8">
+    <div className={`${bricolageGrotesque.className} mx-8`}>
       <Navbar
         onCitySelect={setSelectedCity}
         onThemeChange={handleThemeChange}
