@@ -30,6 +30,27 @@ export default function Navbar({
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
 
+  const handleCitySelect = (cityId: string) => {
+    onCitySelect(cityId);
+    setSearchQuery("");
+    setShowResults(false);
+    
+    const selectedCity = timezones.find(city => city.id === cityId);
+    if (selectedCity) {
+      const savedCities = JSON.parse(localStorage.getItem('savedCities') || '[]');
+      
+      // Remove if already exists
+      const filteredCities = savedCities.filter((city: any) => city.id !== cityId);
+      
+      // Add to the end and keep only last 4
+      const updatedCities = [...filteredCities.slice(-3), selectedCity];
+      localStorage.setItem('savedCities', JSON.stringify(updatedCities));
+      
+      // Dispatch storage event to trigger update in CityTimeCard
+      window.dispatchEvent(new Event('storage'));
+    }
+  };
+
   const selectedTheme =
     themes[currentTheme.mode][
       currentTheme.variant as keyof (typeof themes)[typeof currentTheme.mode]
@@ -95,11 +116,7 @@ export default function Navbar({
                 <div
                   key={city.id}
                   className="p-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => {
-                    onCitySelect(city.id);
-                    setSearchQuery("");
-                    setShowResults(false);
-                  }}
+                  onClick={() => handleCitySelect(city.id)}
                 >
                   <div className="font-medium">{city.city}</div>
                   <div className="text-sm text-gray-500">{city.country}</div>

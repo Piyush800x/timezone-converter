@@ -9,7 +9,15 @@ import { themes, ThemeMode, ThemeVariant } from "@/data/mockData";
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [selectedCity, setSelectedCity] = useState("london");
+  const [selectedCity, setSelectedCity] = useState(() => {
+    // Try to load last selected city from localStorage
+    const savedCities = localStorage.getItem("savedCities");
+    if (savedCities) {
+      const cities = JSON.parse(savedCities);
+      return cities.length > 0 ? cities[cities.length - 1].id : "london";
+    }
+    return "london";
+  });
   const [theme, setTheme] = useState<{
     mode: ThemeMode;
     variant: ThemeVariant;

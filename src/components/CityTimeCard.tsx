@@ -1,8 +1,9 @@
 "use client";
 import { timezones } from "@/data/mockData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeMode, ThemeVariant, themes } from "@/data/mockData";
+import { Sun, Moon } from "lucide-react";
 
 interface CityTimeCardProps {
   currentTime: Date;
@@ -17,7 +18,29 @@ export default function CityTimeCard({
   setSelectedCity,
   currentTheme,
 }: CityTimeCardProps) {
-  const [cities, setCities] = useState(timezones.slice(0, 4));
+  const [cities, setCities] = useState<typeof timezones>([]);
+
+  // Load and sync cities from localStorage
+  useEffect(() => {
+    const updateCities = () => {
+      const savedCities = localStorage.getItem("savedCities");
+      if (savedCities) {
+        setCities(JSON.parse(savedCities));
+      } else {
+        const defaultCities = timezones.slice(0, 4);
+        setCities(defaultCities);
+        localStorage.setItem("savedCities", JSON.stringify(defaultCities));
+      }
+    };
+
+    // Initial load
+    updateCities();
+
+    // Listen for storage events to sync across tabs
+    window.addEventListener("storage", updateCities);
+    return () => window.removeEventListener("storage", updateCities);
+  }, []);
+
   const selectedTheme = themes[currentTheme.mode][
     currentTheme.variant as keyof (typeof themes)[typeof currentTheme.mode]
   ] as {
@@ -85,9 +108,13 @@ export default function CityTimeCard({
               <span className="text-3xl font-bold">{timeString}</span>
               <span className="flex items-center text-xs">
                 {dayOrNight === "Day" ? (
-                  <span className="mr-1">☀</span>
+                  <span className="mr-1">
+                    <Sun className="h-5 w-5" />
+                  </span>
                 ) : (
-                  <span className="mr-1">🌙</span>
+                  <span className="mr-1">
+                    <Moon className="h-5 w-5" />
+                  </span>
                 )}
                 {dayOrNight}
               </span>
