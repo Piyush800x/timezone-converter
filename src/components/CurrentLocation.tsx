@@ -22,14 +22,14 @@ export default function CurrentLocation({
         <p className="text-gray-600 text-right max-w-xs">
           Life moves fast. Stay on time and enjoy every moment!
         </p>
-        <Button
+        {/* <Button
           variant="outline"
           className="mt-4 rounded-full"
           onClick={() => {}}
         >
           <Plus className="h-4 w-4 mr-2" />
           Add Another City
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { Clock, Search } from "lucide-react";
+import { Clock, Plus, Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { timezones } from "@/data/mockData";
@@ -34,20 +34,24 @@ export default function Navbar({
     onCitySelect(cityId);
     setSearchQuery("");
     setShowResults(false);
-    
-    const selectedCity = timezones.find(city => city.id === cityId);
+
+    const selectedCity = timezones.find((city) => city.id === cityId);
     if (selectedCity) {
-      const savedCities = JSON.parse(localStorage.getItem('savedCities') || '[]');
-      
+      const savedCities = JSON.parse(
+        localStorage.getItem("savedCities") || "[]"
+      );
+
       // Remove if already exists
-      const filteredCities = savedCities.filter((city: any) => city.id !== cityId);
-      
+      const filteredCities = savedCities.filter(
+        (city: any) => city.id !== cityId
+      );
+
       // Add to the end and keep only last 4
       const updatedCities = [...filteredCities.slice(-3), selectedCity];
-      localStorage.setItem('savedCities', JSON.stringify(updatedCities));
-      
+      localStorage.setItem("savedCities", JSON.stringify(updatedCities));
+
       // Dispatch storage event to trigger update in CityTimeCard
-      window.dispatchEvent(new Event('storage'));
+      window.dispatchEvent(new Event("storage"));
     }
   };
 
@@ -93,7 +97,7 @@ export default function Navbar({
           )}
         />
         <Input
-          placeholder="Search"
+          placeholder="Search your timezone"
           className={cn(
             "pl-8 border-0",
             currentTheme.mode === "dark"
@@ -115,11 +119,16 @@ export default function Navbar({
               searchResults.map((city) => (
                 <div
                   key={city.id}
-                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                  className="p-2 hover:bg-gray-100 cursor-pointer flex flex-row justify-between"
                   onClick={() => handleCitySelect(city.id)}
                 >
-                  <div className="font-medium">{city.city}</div>
-                  <div className="text-sm text-gray-500">{city.country}</div>
+                  <div>
+                    <div className="font-medium">{city.city}</div>
+                    <div className="text-sm text-gray-500">{city.country}</div>
+                  </div>
+                  <div className="items-center mt-2">
+                    <Plus className="w-5 h-5" />
+                  </div>
                 </div>
               ))
             ) : (

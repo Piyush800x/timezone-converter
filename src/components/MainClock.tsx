@@ -23,6 +23,7 @@ interface MainClockProps {
     tabActive: string;
     tabActiveText: string;
     tabText: string;
+    accentText: string;
   };
 }
 
@@ -79,6 +80,7 @@ export default function MainClock({
       <h1
         className={cn(
           space_mono.className,
+          selectedTheme.accentText,
           "text-[20vw] font-normal tracking-tighter leading-none",
           currentTheme.mode === "dark" ? "text-white" : "text-black"
         )}
@@ -100,6 +102,7 @@ export default function MainClock({
           <span
             className={cn(
               "text-2xl",
+              selectedTheme.accentText,
               currentTheme.mode === "dark" ? "text-white" : "text-black"
             )}
           >
