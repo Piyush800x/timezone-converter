@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Image, ImageOff } from "lucide-react"; // Add this import
 import { toast } from "sonner";
+import { type ThemeProperties } from "@/app/page"; // Import the interface
 
 interface NavbarProps {
   onCitySelect: (cityId: string) => void;
@@ -62,10 +63,10 @@ export default function Navbar({
     }
   };
 
-  const selectedTheme =
-    themes[currentTheme.mode][
-      currentTheme.variant as keyof (typeof themes)[typeof currentTheme.mode]
-    ];
+  // Add proper typing for the theme
+  const selectedTheme = (
+    themes[currentTheme.mode] as Record<ThemeVariant, ThemeProperties>
+  )[currentTheme.variant];
 
   const searchResults = timezones.filter((city) => {
     const searchLower = searchQuery.toLowerCase();
@@ -115,7 +116,7 @@ export default function Navbar({
               : selectedTheme.navText
           )}
         >
-          TimeZoneFlow
+          TimeZonesNow
         </span>
       </div>
 
