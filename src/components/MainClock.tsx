@@ -34,6 +34,17 @@ export default function MainClock({
     };
 
     const timeString = currentTime.toLocaleTimeString("en-US", options);
+    if (timeFormat === "12h") {
+      const [time, period] = timeString.split(" ");
+      return (
+        <div className="flex items-start justify-center w-full">
+          <span className="text-[18vw]">{time.replace(/:/g, ":")}</span>
+          <span className="text-[5vw] mt-[2vw] ml-[2vw] tracking-wide">
+            {period}
+          </span>
+        </div>
+      );
+    }
     return timeString.replace(/:/g, ":");
   };
 
@@ -50,9 +61,9 @@ export default function MainClock({
   };
 
   return (
-    <div className="text-center mb-8">
+    <div className="text-center mb-8 w-full overflow-hidden">
       <h1
-        className={`${space_mono.className} text-[384px] font-normal tracking-tighter leading-none`}
+        className={`${space_mono.className} text-[20vw] font-normal tracking-tighter leading-none`}
       >
         {formatCurrentTime()}
       </h1>

@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <div className="mx-8">
-      <Navbar />
+      <Navbar onCitySelect={setSelectedCity} />
       <main>
         <MainClock currentTime={currentTime} selectedCity={selectedCity} />
         <CurrentLocation selectedCity={selectedCity} />
