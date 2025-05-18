@@ -16,16 +16,22 @@ import { Sun } from "lucide-react";
 import { Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { Image, ImageOff } from "lucide-react"; // Add this import
+import { toast } from "sonner";
 
 interface NavbarProps {
   onCitySelect: (cityId: string) => void;
   onThemeChange: (mode: ThemeMode, variant: ThemeVariant) => void;
+  onWallpaperToggle: () => void;
+  showWallpaper: boolean;
   currentTheme: { mode: ThemeMode; variant: ThemeVariant };
 }
 
 export default function Navbar({
   onCitySelect,
   onThemeChange,
+  onWallpaperToggle,
+  showWallpaper,
   currentTheme,
 }: NavbarProps) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -69,15 +75,26 @@ export default function Navbar({
     );
   });
 
+  const handleWallpaperToggle = () => {
+    if (currentTheme.variant !== "default" || currentTheme.mode !== "light") {
+      toast.error("Wallpaper can only be toggled in Light Default theme");
+      return;
+    }
+    onWallpaperToggle();
+  };
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       className={cn(
-        "flex items-center justify-between p-4 backdrop-blur-sm transition-all duration-300 ease-in-out",
-        selectedTheme.nav,
-        selectedTheme.navText
+        "flex items-center justify-between p-4 transition-all duration-300 ease-in-out",
+        showWallpaper ? "bg-transparent" : selectedTheme.nav,
+        // Text color logic
+        showWallpaper && currentTheme.variant !== "default"
+          ? "text-white"
+          : selectedTheme.navText
       )}
     >
       <div className="flex items-center gap-2">
@@ -90,10 +107,19 @@ export default function Navbar({
         >
           <Clock className="h-5 w-5" />
         </div>
-        <span className="font-bold text-lg">TimeZoneFlow</span>
+        <span
+          className={cn(
+            "font-bold text-lg",
+            showWallpaper && currentTheme.variant !== "default"
+              ? "text-white"
+              : selectedTheme.navText
+          )}
+        >
+          TimeZoneFlow
+        </span>
       </div>
 
-      <div className="relative max-w-xs w-full mx-4 border-2 rounded-xl">
+      <div className="relative max-w-xs w-full mx-4 mr-32 border-2 rounded-xl">
         <Search
           className={cn(
             "absolute left-2 top-2.5 h-4 w-4",
@@ -147,7 +173,7 @@ export default function Navbar({
         )}
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -178,6 +204,45 @@ export default function Navbar({
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
+        <div
+          onClick={handleWallpaperToggle}
+          className={cn(
+            "p-2 rounded-lg transition-colors duration-300",
+            "hover:bg-opacity-20",
+            (currentTheme.variant !== "default" ||
+              currentTheme.mode !== "light") &&
+              "opacity-50 cursor-not-allowed"
+          )}
+          title={
+            currentTheme.variant !== "default" || currentTheme.mode !== "light"
+              ? "Only available in Light Default theme"
+              : showWallpaper
+              ? "Disable wallpaper"
+              : "Enable wallpaper"
+          }
+        >
+          {showWallpaper ? (
+            <Button
+              variant="ghost"
+              disabled={
+                currentTheme.variant !== "default" ||
+                currentTheme.mode !== "light"
+              }
+            >
+              <Image className="w-5 h-5" />
+            </Button>
+          ) : (
+            <Button
+              variant="ghost"
+              disabled={
+                currentTheme.variant !== "default" ||
+                currentTheme.mode !== "light"
+              }
+            >
+              <ImageOff className="w-5 h-5" />
+            </Button>
+          )}
+        </div>
       </div>
     </motion.header>
   );

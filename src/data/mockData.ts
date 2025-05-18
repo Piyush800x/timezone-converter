@@ -1,12 +1,3 @@
-// export const timezones = [
-//     { id: "los-angeles", city: "Los Angeles", country: "United States", value: "America/Los_Angeles", utcOffset: "UTC-8"},
-//     { id: "new-york", city: "New York", value: "America/New_York", country: "United States", utcOffset: "UTC-5" },
-//     { id: "london", city: "London", value: "Europe/London", country: "United Kingdom", utcOffset: "UTC+0" },
-//     { id: "paris", city: "Paris", value: "Europe/Paris", country: "France", utcOffset: "UTC+1" },
-//     { id: "tokyo", city: "Tokyo", value: "Asia/Tokyo", country: "Japan", utcOffset: "UTC+9" },
-// ]
-
-
 export const timezones = [
   { id: "los-angeles", city: "Los Angeles", country: "United States", value: "America/Los_Angeles", utcOffset: "UTC-08:00" },
   { id: "new-york", city: "New York", country: "United States", value: "America/New_York", utcOffset: "UTC-05:00" },
@@ -111,6 +102,7 @@ export const themes = {
       tabBorder: "border-gray-200",
       tabActive: "bg-gray-900",
       tabActiveText: "text-gray-900",
+      currentLocationText: "text-gray-900", // Keep dark text for light default
       wallpaper: "/wallpapers/light-default.webp"
     },
     orange: {
@@ -125,6 +117,7 @@ export const themes = {
       tabBorder: "border-orange-200",
       tabActive: "bg-orange-600",
       tabActiveText: "text-white",
+      currentLocationText: "text-white", // White text when wallpaper is on
       wallpaper: "/wallpapers/light-orange.webp"
     },
     blue: {
@@ -139,6 +132,7 @@ export const themes = {
       tabBorder: "border-blue-200",
       tabActive: "bg-blue-600",    // Kept the same as accent color
       tabActiveText: "text-blue-900",
+      currentLocationText: "text-white", // White text when wallpaper is on
       wallpaper: "/wallpapers/light-blue.webp"
     }
   },
@@ -156,6 +150,7 @@ export const themes = {
       tabActive: "bg-white",
       tabActiveText: "text-white",
       tabText: "text-gray-100", 
+      currentLocationText: "text-white",
       wallpaper: "/wallpapers/dark-default.webp"
     },
     purple: {
@@ -171,6 +166,7 @@ export const themes = {
       tabActive: "bg-purple-300",
       tabActiveText: "text-purple-950",
       tabText: "text-purple-100",
+      currentLocationText: "text-white",
       wallpaper: "/wallpapers/dark-purple.webp"
     },
     green: {
@@ -186,6 +182,7 @@ export const themes = {
       tabActive: "bg-emerald-300",
       tabActiveText: "text-emerald-900",
       tabText: "text-emerald-100",
+      currentLocationText: "text-white",
       wallpaper: "/wallpapers/dark-green.webp"
     }
   }

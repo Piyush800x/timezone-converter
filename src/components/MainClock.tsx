@@ -1,6 +1,6 @@
 "use client";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { timezones } from "@/data/mockData";
 import { Space_Mono } from "next/font/google";
 import { ThemeMode, ThemeVariant } from "@/data/mockData";
@@ -26,6 +26,7 @@ interface MainClockProps {
     tabText: string;
     accentText: string;
   };
+  showWallpaper: boolean; // Add this prop
 }
 
 export default function MainClock({
@@ -33,6 +34,7 @@ export default function MainClock({
   selectedCity,
   currentTheme,
   selectedTheme,
+  showWallpaper, // Add this prop
 }: MainClockProps) {
   const [timeFormat, setTimeFormat] = useState<"12h" | "24h">("24h");
 
@@ -87,9 +89,13 @@ export default function MainClock({
         key={formatCurrentTime().toString()}
         className={cn(
           space_mono.className,
-          selectedTheme.accentText,
           "text-[20vw] font-normal tracking-tighter leading-none",
-          currentTheme.mode === "dark" ? "text-white" : "text-black"
+          // Handle text color based on wallpaper and theme
+          showWallpaper && currentTheme.variant !== "default"
+            ? "text-white"
+            : currentTheme.mode === "dark"
+            ? "text-white"
+            : "text-black"
         )}
       >
         {formatCurrentTime()}
@@ -99,7 +105,11 @@ export default function MainClock({
         <div
           className={cn(
             "text-sm",
-            currentTheme.mode === "dark" ? "text-gray-400" : "text-gray-500"
+            showWallpaper && currentTheme.variant !== "default"
+              ? "text-white/70"
+              : currentTheme.mode === "dark"
+              ? "text-gray-400"
+              : "text-gray-500"
           )}
         >
           Current
@@ -109,8 +119,11 @@ export default function MainClock({
           <span
             className={cn(
               "text-2xl",
-              selectedTheme.accentText,
-              currentTheme.mode === "dark" ? "text-white" : "text-black"
+              showWallpaper && currentTheme.variant !== "default"
+                ? "text-white"
+                : currentTheme.mode === "dark"
+                ? "text-white"
+                : "text-black"
             )}
           >
             {getCurrentDate()}

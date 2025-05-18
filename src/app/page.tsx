@@ -18,6 +18,7 @@ export default function Home() {
     mode: "light",
     variant: "default",
   });
+  const [showWallpaper, setShowWallpaper] = useState(true);
 
   // Update current time every second
   useEffect(() => {
@@ -40,7 +41,6 @@ export default function Home() {
 
   const handleThemeChange = (mode: ThemeMode, variant: ThemeVariant) => {
     setTheme({ mode, variant });
-    // Apply theme classes and wallpaper
     const selectedTheme = (
       themes[mode] as Record<
         ThemeVariant,
@@ -48,7 +48,6 @@ export default function Home() {
       >
     )[variant];
 
-    // Preserve the font classes while updating theme
     const fontClasses = Array.from(document.body.classList).filter(
       (cls) =>
         cls.includes("bricolage") ||
@@ -59,10 +58,22 @@ export default function Home() {
     document.body.className = `${fontClasses.join(" ")} ${
       selectedTheme.background
     } ${selectedTheme.text}`;
-    document.body.style.backgroundImage = `url(${selectedTheme.wallpaper})`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
+
+    // Only set wallpaper if showWallpaper is true
+    if (showWallpaper) {
+      document.body.style.backgroundImage = `url(${selectedTheme.wallpaper})`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundPosition = "center";
+    } else {
+      document.body.style.backgroundImage = "none";
+    }
     document.body.style.transition = "all 0.3s ease";
+  };
+
+  const toggleWallpaper = () => {
+    setShowWallpaper((prev) => !prev);
+    // Re-apply theme to update wallpaper
+    handleThemeChange(theme.mode, theme.variant);
   };
 
   return (
@@ -70,21 +81,28 @@ export default function Home() {
       <Navbar
         onCitySelect={setSelectedCity}
         onThemeChange={handleThemeChange}
+        onWallpaperToggle={toggleWallpaper}
+        showWallpaper={showWallpaper}
         currentTheme={theme}
       />
       <main>
         <MainClock
-          currentTheme={theme}
           currentTime={currentTime}
           selectedCity={selectedCity}
+          currentTheme={theme}
           selectedTheme={{
             ...theme,
             ...((themes[theme.mode] as Record<ThemeVariant, any>)[
               theme.variant
             ] || {}),
           }}
+          showWallpaper={showWallpaper} // Add this prop
         />
-        <CurrentLocation selectedCity={selectedCity} />
+        <CurrentLocation
+          selectedCity={selectedCity}
+          currentTheme={theme}
+          showWallpaper={showWallpaper}
+        />
         <CityTimeCard
           currentTime={currentTime}
           selectedCity={selectedCity}
