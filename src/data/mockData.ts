@@ -110,7 +110,7 @@ export const themes = {
       tabBg: "bg-gray-100",
       tabBorder: "border-gray-200",
       tabActive: "bg-gray-900",
-      tabActiveText: "text-white",
+      tabActiveText: "text-gray-900",
       wallpaper: "/wallpapers/light-default.webp"
     },
     orange: {
@@ -135,9 +135,10 @@ export const themes = {
       accentText: "text-white",
       nav: "bg-blue-50",
       navText: "text-blue-900",
+      tabBg: "bg-blue-100",  
       tabBorder: "border-blue-200",
-      tabActive: "bg-blue-600",
-      tabActiveText: "text-white",
+      tabActive: "bg-blue-600",    // Kept the same as accent color
+      tabActiveText: "text-blue-900",
       wallpaper: "/wallpapers/light-blue.webp"
     }
   },
@@ -153,35 +154,38 @@ export const themes = {
       tabBg: "bg-gray-800",
       tabBorder: "border-gray-700",
       tabActive: "bg-white",
-      tabActiveText: "text-gray-900",
+      tabActiveText: "text-white",
+      tabText: "text-gray-100", 
       wallpaper: "/wallpapers/dark-default.webp"
     },
     purple: {
       name: "Dark Purple",
       background: "bg-purple-950",
-      text: "text-purple-100",
+      text: "text-purple-50",
       accent: "bg-purple-400",
       accentText: "text-purple-950",
       nav: "bg-purple-950",
       navText: "text-purple-100",
       tabBg: "bg-purple-800",
       tabBorder: "border-purple-700",
-      tabActive: "bg-purple",
-      tabActiveText: "text-purple-900",
+      tabActive: "bg-purple-300",
+      tabActiveText: "text-purple-950",
+      tabText: "text-purple-100",
       wallpaper: "/wallpapers/dark-purple.webp"
     },
     green: {
       name: "Dark Green",
       background: "bg-emerald-950",
-      text: "text-emerald-100",
+      text: "text-emerald-50",
       accent: "bg-emerald-400",
       accentText: "text-emerald-950",
       nav: "bg-emerald-950",
       navText: "text-emerald-100",
       tabBg: "bg-emerald-800",
       tabBorder: "border-emerald-700",
-      tabActive: "bg-emerald",
+      tabActive: "bg-emerald-300",
       tabActiveText: "text-emerald-900",
+      tabText: "text-emerald-100",
       wallpaper: "/wallpapers/dark-green.webp"
     }
   }

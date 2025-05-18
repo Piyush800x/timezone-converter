@@ -27,10 +27,6 @@ export default function CityTimeCard({
     text: string;
   };
 
-  // Get current city data
-  const currentCity =
-    timezones.find((tz) => tz.id === selectedCity) || timezones[2];
-
   // Determine if it's day or night in a timezone
   const getDayOrNight = (timezone: string) => {
     const hour = new Date().toLocaleString("en-US", {
@@ -65,7 +61,7 @@ export default function CityTimeCard({
             key={city.id}
             onClick={() => setSelectedCity(city.id)}
             className={cn(
-              "p-4 rounded-lg cursor-pointer transition-colors",
+              "p-4 rounded-lg cursor-pointer transition-colors shadow-2xl",
               isSelected
                 ? "accent" in selectedTheme && "accentText" in selectedTheme
                   ? `${selectedTheme.accent} ${selectedTheme.accentText}`

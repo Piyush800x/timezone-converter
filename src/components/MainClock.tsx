@@ -22,6 +22,7 @@ interface MainClockProps {
     tabBorder: string;
     tabActive: string;
     tabActiveText: string;
+    tabText: string;
   };
 }
 
@@ -112,28 +113,20 @@ export default function MainClock({
         >
           <TabsList
             className={cn(
-              "border",
+              "border rounded-lg overflow-hidden",
               selectedTheme.tabBg,
               selectedTheme.tabBorder
             )}
           >
             <TabsTrigger
               value="12h"
-              className={cn(
-                "transition-colors",
-                "data-[state=active]:" + selectedTheme.tabActive,
-                "data-[state=active]:" + selectedTheme.tabActiveText
-              )}
+              className={`transition-colors duration-200 px-4 py-2 data-[state=active]:${selectedTheme.tabActive} data-[state=active]:${selectedTheme.tabActiveText} ${selectedTheme.tabText}`}
             >
               12h
             </TabsTrigger>
             <TabsTrigger
               value="24h"
-              className={cn(
-                "transition-colors",
-                "data-[state=active]:" + selectedTheme.tabActive,
-                "data-[state=active]:" + selectedTheme.tabActiveText
-              )}
+              className={`transition-colors duration-200 px-4 py-2 data-[state=active]:${selectedTheme.tabActive} data-[state=active]:${selectedTheme.tabActiveText} ${selectedTheme.tabText}`}
             >
               24h
             </TabsTrigger>
