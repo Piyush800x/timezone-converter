@@ -62,7 +62,7 @@ export default function Home() {
     document.body.style.backgroundImage = `url(${selectedTheme.wallpaper})`;
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
-    document.body.style.transition = "background-color 0.3s, color 0.3s";
+    document.body.style.transition = "all 0.3s ease";
   };
 
   return (

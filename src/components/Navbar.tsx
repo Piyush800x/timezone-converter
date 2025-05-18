@@ -15,6 +15,7 @@ import {
 import { Sun } from "lucide-react";
 import { Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface NavbarProps {
   onCitySelect: (cityId: string) => void;
@@ -69,9 +70,12 @@ export default function Navbar({
   });
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
       className={cn(
-        "flex items-center justify-between p-4 backdrop-blur-sm background-color 0.3s, color 0.3s",
+        "flex items-center justify-between p-4 backdrop-blur-sm transition-all duration-300 ease-in-out",
         selectedTheme.nav,
         selectedTheme.navText
       )}
@@ -114,7 +118,12 @@ export default function Navbar({
 
         {/* Search Results Dropdown */}
         {showResults && searchQuery && (
-          <div className="absolute w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-auto z-50">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="absolute w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-auto z-50"
+          >
             {searchResults.length > 0 ? (
               searchResults.map((city) => (
                 <div
@@ -134,7 +143,7 @@ export default function Navbar({
             ) : (
               <div className="p-2 text-gray-500">No cities found</div>
             )}
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -170,6 +179,6 @@ export default function Navbar({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    </header>
+    </motion.header>
   );
 }

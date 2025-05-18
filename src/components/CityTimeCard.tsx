@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeMode, ThemeVariant, themes } from "@/data/mockData";
 import { Sun, Moon } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface CityTimeCardProps {
   currentTime: Date;
@@ -80,11 +81,16 @@ export default function CityTimeCard({
         const dayOrNight = getDayOrNight(city.value);
 
         return (
-          <div
+          <motion.div
             key={city.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setSelectedCity(city.id)}
             className={cn(
-              "p-4 rounded-lg cursor-pointer transition-colors shadow-2xl",
+              "p-4 rounded-lg cursor-pointer transition-all duration-300 shadow-2xl",
               isSelected
                 ? "accent" in selectedTheme && "accentText" in selectedTheme
                   ? `${selectedTheme.accent} ${selectedTheme.accentText}`
@@ -119,7 +125,7 @@ export default function CityTimeCard({
                 {dayOrNight}
               </span>
             </div>
-          </div>
+          </motion.div>
         );
       })}
     </div>

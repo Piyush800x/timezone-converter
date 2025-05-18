@@ -5,6 +5,7 @@ import { timezones } from "@/data/mockData";
 import { Space_Mono } from "next/font/google";
 import { ThemeMode, ThemeVariant } from "@/data/mockData";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const space_mono = Space_Mono({
   weight: ["400", "700"],
@@ -76,8 +77,14 @@ export default function MainClock({
   };
 
   return (
-    <div className="text-center mb-8 w-full overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="text-center mb-8 w-full overflow-hidden"
+    >
       <h1
+        key={formatCurrentTime().toString()}
         className={cn(
           space_mono.className,
           selectedTheme.accentText,
@@ -136,6 +143,6 @@ export default function MainClock({
           </TabsList>
         </Tabs>
       </div>
-    </div>
+    </motion.div>
   );
 }
