@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "TimeZonesNow - World Clock & Time Zone Converter",
     description:
       "Convert between time zones instantly with our free online tool",
-    images: ["https://timezone.piyushpaul.com/og-image.jpg"],
+    images: ["https://timezone.piyushpaul.com/twitter-image.jpg"],
   },
   robots: {
     index: true,
@@ -86,7 +86,7 @@ export default function RootLayout({
           type="font/ttf"
           crossOrigin="anonymous"
         />
-        <link rel="canonical" href="https://yourdomain.com" />
+        <link rel="canonical" href="https://timezone.piyushpaul.com" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
